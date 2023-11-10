@@ -3,23 +3,15 @@ import MovieModel from '../model/movie.model';
 import GenreModel from '../model/genre.model';
 
 export const createGenres = async (req: Request, res: Response) => {
-  const { name } = req.body
-  const { movieId } = req.params
+  const { name } = req.body;
 
   try {
-
-    const genre = await GenreModel.create({ name, movieId });
-
-    await MovieModel.findByIdAndUpdate(
-        {_id:movieId},
-         {$push: {genre: genre._id},}
-    );
+    const genre = await GenreModel.create({ name });
 
     res.status(201).json(genre);
   } catch (error) {
     res.status(500).json(error);
   };
-  //res.status(200).send('Movie created')
 };
 
 export const addGenreToMovie = async (req: Request, res: Response) => {
@@ -35,12 +27,34 @@ export const addGenreToMovie = async (req: Request, res: Response) => {
 
     await MovieModel.findByIdAndUpdate(
       { _id: movieId },
-      { $addToSet: { genres: existingGenre._id } },
+      { $addToSet: { genre: existingGenre._id } },
       { new: true }
     );
 
-    res.status(201).json(existingGenre);
+    res.status(202).json(existingGenre);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+export const getAllGenres = async (req: Request, res: Response) => {
+  try {
+      const genre = await GenreModel.find();
+      res.status(200).json(genre);
+  } catch (error) {
+      res.status(500).json(error);
+  }
+};
+
+export const deleteGenres = async (req: Request, res: Response) => {
+  const { genreId } = req.params;
+
+  try {
+      const genre = await GenreModel.findByIdAndDelete({ _id: genreId });
+
+      res.status(200).json(genre);
+
+  } catch (error) {
+      res.status(500).json(error);
   }
 };

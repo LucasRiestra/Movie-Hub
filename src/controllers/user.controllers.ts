@@ -1,15 +1,19 @@
 import { Request, Response } from 'express';
 import UserModel from '../model/user.model';
 
-export const getAllUsers = (req: Request, res: Response) => {
-  res.status(200).send('Get all users');
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+      const user = await UserModel.find().populate('movie').populate('movie.genre');
+      res.status(200).json(user);
+  } catch (error) {
+      res.status(500).json(error);
+  }
 };
 
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password, movie } = req.body
 
   try {
-
     const newUser = await UserModel.create({ name, email, password, movie });
 
     res.status(201).json(newUser);
@@ -44,7 +48,7 @@ export const updateUser = async (req: Request, res: Response) => {
       { new: true } 
        );
 
-       res.status(201).json(user);
+       res.status(202).json(user);
 
   } catch (error) {
       res.status(500).json(error);
@@ -52,6 +56,15 @@ export const updateUser = async (req: Request, res: Response) => {
   //res.status(200).send('User updated');
 };
 
-export const deleteUser = (req: Request, res: Response) => {
-  res.status(202).send('User deleted');
+export const deleteUser = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+      const user = await UserModel.findByIdAndDelete({ _id: userId });
+
+      res.status(200).json(user);
+
+  } catch (error) {
+      res.status(500).json(error);
+  }
 };
