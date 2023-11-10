@@ -14,7 +14,6 @@ export const createMovies = async (req: Request, res: Response) => {
     await UserModel.findByIdAndUpdate(
         {_id:userId},
          {$push: {movie: movie._id},}
-         
     );
 
     res.status(201).json(movie);
@@ -23,4 +22,3 @@ export const createMovies = async (req: Request, res: Response) => {
   };
   //res.status(200).send('Movie created')
 };
-
