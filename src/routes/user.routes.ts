@@ -4,17 +4,19 @@ import {
   createUser,
   updateUser,
   deleteUser,
-  getUserById
+  getUserById,
+  getUserByEmail
 } from '../controllers/user.controllers';
 
-import { check } from '../middlewares/check.middleware';
 
 const userRoutes = Router();
 
 userRoutes.get('/', getAllUsers);
 userRoutes.get('/:userId', getUserById)
-userRoutes.post('/', check, createUser);
+userRoutes.post('/', createUser);
 userRoutes.patch('/:userId', updateUser);
-userRoutes.delete('/:id', deleteUser);
+userRoutes.delete('/:userId', deleteUser);
+userRoutes.get('/email/:userEmail', getUserByEmail)
+
 
 export default userRoutes;

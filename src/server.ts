@@ -1,16 +1,35 @@
 import express from 'express';
+import cors from 'cors';
 import userRoutes from "./routes/user.routes";
-import movieRoutes from './routes/movies.routes';
+import movieRoutes from './routes/movie.routes';
+import genreRoutes from './routes/genre.routes';
+import {requestRouter} from './routes/request.routes';
+import { checkJwtMiddleware } from './middlewares/checkjwt.middleware';
+import FileUpload from 'express-fileupload';
+;
 
-//initializations
-// Importamos la Aplicacion
-// Importamos la Configuracion
+
 const app = express();
-app.use(express.json());
-//settings
 
-//routes
+// Cors configuration
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(FileUpload({
+  useTempFiles: true,
+  tempFileDir: './uploads',
+  limits: {fileSize: 10000000},
+  abortOnLimit: true
+}));
+// Routes
 app.use("/user", userRoutes);
-app.use("/movies", movieRoutes);
+app.use("/movie", movieRoutes);
+app.use("/genre", genreRoutes);
+app.use("/", requestRouter);
+
+
 
 export default app;

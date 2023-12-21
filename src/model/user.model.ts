@@ -4,7 +4,7 @@ interface IUserDocument extends Document {
     name: string;
     email: string;
     password: string;
-    movies: string;
+    movie?: string[];
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -23,10 +23,8 @@ const UserSchema = new Schema <IUserDocument>({
         type: String,
         required: [true, "Password is required"]
     },
-    movies: {
-        type: String,
-        required: [true, "Movie is required"]
-    }}, 
+    movie: [{ type: Schema.Types.ObjectId, ref: 'Movie'}]
+    }, 
     {timestamps: true, versionKey: false}
 );
 
