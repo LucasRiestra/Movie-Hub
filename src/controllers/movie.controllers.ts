@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import prisma from '../db/client';
 import { DATA_SOURCE, prismaClient } from '../db/client';
 import { convertToType, convertToString } from '../helpers/utils';
 

@@ -4,7 +4,6 @@ import userRoutes from "./routes/user.routes";
 import movieRoutes from './routes/movie.routes';
 import genreRoutes from './routes/genre.routes';
 import {requestRouter} from './routes/request.routes';
-import { checkJwtMiddleware } from './middlewares/checkjwt.middleware';
 import FileUpload from 'express-fileupload';
 ;
 
@@ -12,11 +11,11 @@ import FileUpload from 'express-fileupload';
 const app = express();
 
 // Cors configuration
-const corsOptions = {
-  origin: 'http://localhost:5173',
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: 'http://localhost:5173',
+//   optionsSuccessStatus: 200,
+// };
+app.use(cors());
 app.use(express.json());
 app.use(FileUpload({
   useTempFiles: true,

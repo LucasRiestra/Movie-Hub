@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import prisma from '../db/client';
-import { DATA_SOURCE, prismaClient } from '../db/client';
+import { prismaClient } from '../db/client';
 import { convertToType } from '../helpers/utils';
-import { User } from '@prisma/client'; 
+
 
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;

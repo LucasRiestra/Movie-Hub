@@ -7,8 +7,8 @@ export const uploadImage = async (imagePath: string) => {
     return await cloudinary.uploader.upload(imagePath, {
         resource_type: "image",
         folder: 'backend',
-        height: 600,
-        width: 600,
+        height: 650,
+        width: 400,
         crop: 'scale',
         overwrite: true
     })

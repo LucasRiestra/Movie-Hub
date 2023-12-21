@@ -44,4 +44,3 @@ export const uploadImageWithCloudinary = async (req: Request, res: Response) => 
 
   res.status(200).send({ message: "Solicitud de carga", image: imageUploaded });
 };
-

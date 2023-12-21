@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import prisma from '../db/client';
 import { DATA_SOURCE, prismaClient } from '../db/client';
 import { convertToType } from '../helpers/utils';
 
@@ -42,5 +41,3 @@ export const getAllGenres = async (req: Request, res: Response) => {
         res.status(500).json(error);
     }
 };
-
-
